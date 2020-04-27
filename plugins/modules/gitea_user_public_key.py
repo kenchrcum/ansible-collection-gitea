@@ -45,7 +45,7 @@ import giteapy
 from giteapy.rest import ApiException
 
 from ansible.module_utils.aws.core import AnsibleModule
-from ansible_collections.kenchrcum.gitea.plugins.module_utils.helper_functions import _connect_to_gitea
+from ansible_collections.kenchrcum.gitea.plugins.module_utils.helper_functions import _configure_connection
 
 
 def _create_user_public_key(module, api_instance):
@@ -67,7 +67,7 @@ def _create_user_public_key(module, api_instance):
 
     changed = False
 
-    user_instance = _connect_to_gitea(params_conn, "user")
+    user_instance = _configure_connection(params_conn, "user")
 
     api_response = user_instance.user_list_keys(**params_get)
 
@@ -144,10 +144,7 @@ def _main():
         password=module.params.get('gitea_password'),
     )
 
-    try:
-        api_instance = _connect_to_gitea(connection_params, "admin")
-    except:
-        module.fail_json(msg="could not connect to gitea api")
+    api_instance = _configure_connection(connection_params, "admin")
 
     choice_map.get(module.params.get('state'))(module, api_instance)
 
