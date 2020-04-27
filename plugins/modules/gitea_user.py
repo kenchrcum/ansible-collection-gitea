@@ -22,15 +22,7 @@ import giteapy
 from giteapy.rest import ApiException
 
 from ansible.module_utils.aws.core import AnsibleModule
-
-
-def _connect_to_gitea(connection_params):
-    configuration = giteapy.Configuration()
-    configuration.host = connection_params.get('host')
-    configuration.username = connection_params.get('username')
-    configuration.password = connection_params.get('password')
-    api_instance = giteapy.AdminApi(giteapy.ApiClient(configuration))
-    return api_instance
+from ansible_collections.kenchrcum.gitea.plugins.module_utils.helper_functions import _connect_to_gitea
 
 
 def _admin_create_user(module, api_instance):
