@@ -1,2 +1,3 @@
-# ansible-collection-gitea
-Ansible Collection for Gitea
+# Ansible Collection - kenchrcum.gitea
+
+Documentation for the collection.
