@@ -1,5 +1,6 @@
 import giteapy
 
+
 def _compare_dict_with_resource(input, resource):
     change = False
     updated_keys = []
