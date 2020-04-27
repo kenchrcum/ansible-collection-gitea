@@ -14,7 +14,7 @@ def _compare_dict_with_resource(input, resource):
         return dict(change=change)
 
 
-def _connect_to_gitea(connection_params, api):
+def _configure_connection(connection_params, api):
     configuration = giteapy.Configuration()
     configuration.host = connection_params.get('host')
     configuration.username = connection_params.get('username')
