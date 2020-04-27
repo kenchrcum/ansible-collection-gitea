@@ -107,7 +107,7 @@ def _delete_user(module, api_instance):
 
     if exists:
         try:
-            api_instance.admin_delete_user(kwargs.get('username'))
+            api_instance.admin_delete_user(**kwargs)
             changed = True
         except ApiException as e:
             module.fail_json(msg="Exception when calling AdminApi->admin_delete_user: %s" % e)
@@ -152,7 +152,7 @@ def _main():
     )
 
     try:
-        api_instance = _connect_to_gitea(connection_params)
+        api_instance = _connect_to_gitea(connection_params, "admin")
     except:
         module.fail_json(msg="could not connect to gitea api")
 
