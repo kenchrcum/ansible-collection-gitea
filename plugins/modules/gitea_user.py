@@ -54,7 +54,7 @@ from ansible.module_utils.aws.core import AnsibleModule
 from ansible_collections.kenchrcum.gitea.plugins.module_utils.helper_functions import _connect_to_gitea
 
 
-def _admin_create_user(module, api_instance):
+def _create_user(module, api_instance):
     params = dict(
         email=module.params.get('email'),
         full_name=module.params.get('full_name'),
@@ -83,7 +83,7 @@ def _admin_create_user(module, api_instance):
         api_response = api_instance.admin_create_user(body=body)
         changed = True
     except ApiException as e:
-        module.fail_json(msg="Exception when calling AdminApi->admin_create_user: %s\n" % e)
+        module.fail_json(msg="Exception when calling AdminApi->admin_create_user: %s" % e)
     else:
         module.exit_json(changed=changed, **api_response.to_dict())
 
@@ -103,14 +103,14 @@ def _delete_user(module, api_instance):
     for entry in api_response:
         user = entry.to_dict()
         if user.get('login') == kwargs.get('username'):
-            exists=True
+            exists = True
 
     if exists:
         try:
             api_instance.admin_delete_user(kwargs.get('username'))
             changed = True
         except ApiException as e:
-            module.fail_json(msg="Exception when calling AdminApi->admin_delete_user: %s\n" % e)
+            module.fail_json(msg="Exception when calling AdminApi->admin_delete_user: %s" % e)
         else:
             module.exit_json(changed=changed)
     else:
@@ -134,7 +134,7 @@ def _main():
     )
 
     choice_map = {
-        'present': _admin_create_user,
+        'present': _create_user,
         'absent': _delete_user,
     }
 
