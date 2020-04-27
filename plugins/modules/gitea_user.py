@@ -26,7 +26,7 @@ options:
   state:
     decription: desired state of the user
   email:
-    decription: user e-mail address
+    decription: user e-mail address. Required when state=present
   full_name:
     decription: user full name
   login_name:
@@ -34,7 +34,7 @@ options:
   must_change_pw:
     decription: indicate if user must change password after first login
   password:
-    decription: user password
+    decription: user password. Required when state=present
   send_notify:
     decription: send notification to new user
   source_id:
