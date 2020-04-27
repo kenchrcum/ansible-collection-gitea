@@ -14,10 +14,23 @@ def _compare_dict_with_resource(input, resource):
         return dict(change=change)
 
 
-def _connect_to_gitea(connection_params):
+def _connect_to_gitea(connection_params, api):
     configuration = giteapy.Configuration()
     configuration.host = connection_params.get('host')
     configuration.username = connection_params.get('username')
     configuration.password = connection_params.get('password')
-    api_instance = giteapy.AdminApi(giteapy.ApiClient(configuration))
+    if api == "admin":
+        api_instance = giteapy.AdminApi(giteapy.ApiClient(configuration))
+    elif api == "issue":
+        api_instance = giteapy.IssueApi(giteapy.ApiClient(configuration))
+    elif api == "misc":
+        api_instance = giteapy.MiscellaneousApi(giteapy.ApiClient(configuration))
+    elif api == "org":
+        api_instance = giteapy.OrganizationApi(giteapy.ApiClient(configuration))
+    elif api == "repo":
+        api_instance = giteapy.RepositoryApi(giteapy.ApiClient(configuration))
+    elif api == "user":
+        api_instance = giteapy.UserApi(giteapy.ApiClient(configuration))
+    else:
+        raise BaseException("no valid api")
     return api_instance
