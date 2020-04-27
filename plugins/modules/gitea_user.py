@@ -10,9 +10,38 @@ module: gitea_user
 short_description: Manage an user in Gitea
 description:
   - Manage an user in Gitea
+  - ATM only supports basic auth login
 requirements: [ 'giteapy' ]
 author: "Kenneth Cummings (kenneth@fliacummings.de)"
 options:
+  gitea_host:
+    description: URL of the gitea API Endpoint
+    required: True
+  gitea_user:
+    description: gitea login user
+    required: True
+  gitea_password:
+    description: gitea login password
+    required: True
+  state:
+    decription: desired state of the user
+  email:
+    decription: user e-mail address
+  full_name:
+    decription: user full name
+  login_name:
+    decription: user login name
+  must_change_pw:
+    decription: indicate if user must change password after first login
+  password:
+    decription: user password
+  send_notify:
+    decription: send notification to new user
+  source_id:
+    decription: source id for the user
+  username:
+    description: username to be used
+    required: True
 '''
 
 EXAMPLES = '''
@@ -90,9 +119,9 @@ def _delete_user(module, api_instance):
 
 def _main():
     argument_spec = dict(
-        gitea_host=dict(required=False, default=None),
-        gitea_user=dict(required=False, default=None),
-        gitea_password=dict(required=False, default=None, no_log=True),
+        gitea_host=dict(required=True, default=None),
+        gitea_user=dict(required=True, default=None),
+        gitea_password=dict(required=True, default=None, no_log=True),
         state=dict(default='present', choices=['present', 'absent']),
         email=dict(required=False, default=None),
         full_name=dict(required=False, default=None),
