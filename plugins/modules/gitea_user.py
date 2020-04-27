@@ -122,7 +122,10 @@ def _main():
         password=module.params.get('gitea_password'),
     )
 
-    api_instance = _connect_to_gitea(connection_params)
+    try:
+        api_instance = _connect_to_gitea(connection_params)
+    except:
+        module.fail_json(msg="could not connect to gitea api")
 
     choice_map.get(module.params.get('state'))(module, api_instance)
 
