@@ -29,8 +29,6 @@ options:
     decription: ssh public key to add. Required when state=present
   key_id:
     description: id of the key to be deleted. Required when state=absent
-  read_only:
-    decription: whether the key has only read access ot read/write
   title:
     decription: title of the key. Required when state=present
   username:
@@ -45,13 +43,13 @@ import giteapy
 from giteapy.rest import ApiException
 
 from ansible.module_utils.aws.core import AnsibleModule
-from ansible_collections.kenchrcum.gitea.plugins.module_utils.helper_functions import _configure_connection
+from ansible_collections.kenchrcum.gitea.plugins.module_utils.helper_functions import _configure_connection, \
+    _compare_dict_with_resource
 
 
 def _create_user_public_key(module, api_instance):
     params = dict(
         key=module.params.get('key'),
-        read_only=module.params.get('read_only'),
         title=module.params.get('title'),
     )
     params_get = dict(
@@ -73,9 +71,9 @@ def _create_user_public_key(module, api_instance):
 
     for entry in api_response:
         key = entry.to_dict()
-        if key.get('title') == kwargs.get('title'):
-            if key.get('key') == kwargs.get('key'):
-                module.exit_json(changed=changed)
+        compare = _compare_dict_with_resource(params, key)
+        if not compare["change"]:
+            module.exit_json(changed=changed)
 
     key = giteapy.CreateKeyOption(**kwargs)
 
@@ -85,6 +83,8 @@ def _create_user_public_key(module, api_instance):
     except ApiException as e:
         if "Key content has been used" in str(e):
             module.fail_json(msg="The key seems to be locked. Probably already in use.")
+        elif "Key title has been used" in str(e):
+            module.fail_json(msg="Key title has been used. To reuse name, try running state=absent first")
         else:
             module.fail_json(msg="Exception when calling AdminApi->admin_create_public_key: %s" % e)
     else:
@@ -121,7 +121,6 @@ def _main():
         state=dict(default='present', choices=['present', 'absent']),
         username=dict(required=True, default=None),
         key=dict(required=False, default=None),
-        read_only=dict(required=False, default=None, type='bool'),
         title=dict(required=False, default=None),
         key_id=dict(required=False, default=None, type='int'),
     )
