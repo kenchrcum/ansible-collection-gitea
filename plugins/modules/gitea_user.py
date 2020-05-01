@@ -51,7 +51,7 @@ import giteapy
 from giteapy.rest import ApiException
 
 from ansible.module_utils.aws.core import AnsibleModule
-from ansible_collections.kenchrcum.gitea.plugins.module_utils.helper_functions import _configure_connection
+from ..module_utils.helper_functions import _configure_connection
 
 
 def _create_user(module, api_instance):

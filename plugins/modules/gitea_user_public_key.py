@@ -43,8 +43,7 @@ import giteapy
 from giteapy.rest import ApiException
 
 from ansible.module_utils.aws.core import AnsibleModule
-from ansible_collections.kenchrcum.gitea.plugins.module_utils.helper_functions import _configure_connection, \
-    _compare_dict_with_resource
+from ..module_utils.helper_functions import _configure_connection, _compare_dict_with_resource
 
 
 def _create_user_public_key(module, api_instance):
