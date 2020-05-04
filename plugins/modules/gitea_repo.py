@@ -13,24 +13,17 @@ description:
   - ATM only supports basic auth login
 requirements: [ 'giteapy' ]
 author: "Kenneth Cummings (kenneth@fliacummings.de)"
+extends_documentation_fragment:
+  - kenchrcum.gitea.gitea_auth
 options:
-  gitea_host:
-    description: URL of the gitea API Endpoint
-    required: True
-  gitea_user:
-    description: gitea login user
-    required: True
-  gitea_password:
-    description: gitea login password
-    required: True
   state:
-    decription: desired state of the public key
+    description: desired state of the repository
   auto_init:
-    decription: Whether the repository should be auto-intialized
+    description: Whether the repository should be auto-intialized
   description:
     description: Description of the repository to create
   gitignores:
-    decription: Gitignores to use
+    description: Gitignores to use
   issue_labels:
     description: Issue Label set to use
   license:

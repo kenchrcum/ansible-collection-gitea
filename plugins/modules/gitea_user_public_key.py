@@ -13,24 +13,17 @@ description:
   - ATM only supports basic auth login
 requirements: [ 'giteapy' ]
 author: "Kenneth Cummings (kenneth@fliacummings.de)"
+extends_documentation_fragment:
+  - kenchrcum.gitea.gitea_auth
 options:
-  gitea_host:
-    description: URL of the gitea API Endpoint
-    required: True
-  gitea_user:
-    description: gitea login user
-    required: True
-  gitea_password:
-    description: gitea login password
-    required: True
   state:
-    decription: desired state of the public key
+    description: desired state of the public key
   key:
-    decription: ssh public key to add. Required when state=present
+    description: ssh public key to add. Required when state=present
   key_id:
     description: id of the key to be deleted. Required when state=absent
   title:
-    decription: title of the key. Required when state=present
+    description: title of the key. Required when state=present
   username:
     description: of the key owner
     required: True

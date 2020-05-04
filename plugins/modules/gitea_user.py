@@ -13,32 +13,25 @@ description:
   - ATM only supports basic auth login
 requirements: [ 'giteapy' ]
 author: "Kenneth Cummings (kenneth@fliacummings.de)"
+extends_documentation_fragment:
+  - kenchrcum.gitea.gitea_auth
 options:
-  gitea_host:
-    description: URL of the gitea API Endpoint
-    required: True
-  gitea_user:
-    description: gitea login user
-    required: True
-  gitea_password:
-    description: gitea login password
-    required: True
   state:
-    decription: desired state of the user
+    description: desired state of the user
   email:
-    decription: user e-mail address. Required when state=present
+    description: user e-mail address. Required when state=present
   full_name:
-    decription: user full name
+    description: user full name
   login_name:
-    decription: user login name
+    description: user login name
   must_change_pw:
-    decription: indicate if user must change password after first login
+    description: indicate if user must change password after first login
   password:
-    decription: user password. Required when state=present
+    description: user password. Required when state=present
   send_notify:
-    decription: send notification to new user
+    description: send notification to new user
   source_id:
-    decription: source id for the user
+    description: source id for the user
   username:
     description: username to be used
     required: True
