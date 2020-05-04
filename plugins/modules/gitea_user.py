@@ -75,7 +75,7 @@ def _create_user(module, api_instance):
     for entry in api_response:
         user = entry.to_dict()
         if user.get('login') == kwargs.get('username'):
-            module.exit_json(changed=changed)
+            module.exit_json(changed=changed, **user)
 
     body = giteapy.CreateUserOption(**kwargs)
 

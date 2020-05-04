@@ -72,7 +72,7 @@ def _create_user_public_key(module, api_instance):
         key = entry.to_dict()
         compare = _compare_dict_with_resource(params, key)
         if not compare["change"]:
-            module.exit_json(changed=changed)
+            module.exit_json(changed=changed, **key)
 
     key = giteapy.CreateKeyOption(**kwargs)
 
