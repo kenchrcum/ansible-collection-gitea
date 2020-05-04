@@ -6,7 +6,7 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 
 DOCUMENTATION = '''
 ---
-module: gitea_user
+module: gitea_user_public_key
 short_description: Manage user's public keys
 description:
   - Manage user's public keys

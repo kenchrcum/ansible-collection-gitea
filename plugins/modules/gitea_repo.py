@@ -5,6 +5,46 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
                     'supported_by': 'community'}
 
 DOCUMENTATION = '''
+---
+module: gitea_repo
+short_description: Manage repo on user's behalf
+description:
+  - Manage repo on user's behalf
+  - ATM only supports basic auth login
+requirements: [ 'giteapy' ]
+author: "Kenneth Cummings (kenneth@fliacummings.de)"
+options:
+  gitea_host:
+    description: URL of the gitea API Endpoint
+    required: True
+  gitea_user:
+    description: gitea login user
+    required: True
+  gitea_password:
+    description: gitea login password
+    required: True
+  state:
+    decription: desired state of the public key
+  auto_init:
+    decription: Whether the repository should be auto-intialized
+  description:
+    description: Description of the repository to create
+  gitignores:
+    decription: Gitignores to use
+  issue_labels:
+    description: Issue Label set to use
+  license:
+    description: License to use
+  name:
+    description: Name of the repository to create
+    required: True
+  private:
+    description: Whether the repository is private
+  readme:
+    description: Readme of the repository to create
+  username:
+    description: Username of the user. This user will own the created repository
+    required: True
 '''
 
 EXAMPLES = '''
