@@ -12,7 +12,8 @@ description:
   - Manage user's public keys
   - ATM only supports basic auth login
 requirements: [ 'giteapy' ]
-author: "Kenneth Cummings (kenneth@fliacummings.de)"
+author:
+  - "Kenneth Cummings (kenneth@fliacummings.de)"
 extends_documentation_fragment:
   - kenchrcum.gitea.gitea_auth
 options:
@@ -33,9 +34,9 @@ EXAMPLES = '''
 '''
 
 import giteapy
+from ansible.module_utils.aws.core import AnsibleModule
 from giteapy.rest import ApiException
 
-from ansible.module_utils.aws.core import AnsibleModule
 from ..module_utils.helper_functions import _configure_connection, _compare_dict_with_resource
 
 
