@@ -5,6 +5,39 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
                     'supported_by': 'community'}
 
 DOCUMENTATION = '''
+---
+module: gitea_organization
+short_description: Manage gitea organization 
+description:
+  - Create a gitea organization
+  - ATM only supports basic auth login
+requirements: [ 'giteapy' ]
+author:
+  - "Kenneth Cummings (kenneth@fliacummings.de)"
+extends_documentation_fragment:
+  - kenchrcum.gitea.gitea_auth
+options:
+  state:
+    description: desired state of the organization
+  description:
+    description: organization description
+  full_name:
+    description: organization full name
+  location:
+    description: organization location
+  owner:
+    description: existing user as owner of the organization
+    required: True
+  repo_admin_change_team_access:
+    description: whether repo admins can change team access
+  username:
+    description: short name for the organization
+    required: True
+  visibility:
+    description: visibility of the organization
+    choices: ['public', 'limited', 'private']
+  website:
+    description: organization website
 '''
 
 EXAMPLES = '''

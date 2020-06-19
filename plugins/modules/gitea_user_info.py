@@ -5,6 +5,17 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
                     'supported_by': 'community'}
 
 DOCUMENTATION = '''
+---
+module: gitea_user_info
+short_description: Get info existing users 
+description:
+  - Get info existing users
+  - ATM only supports basic auth login
+requirements: [ 'giteapy' ]
+author:
+  - "Kenneth Cummings (kenneth@fliacummings.de)"
+extends_documentation_fragment:
+  - kenchrcum.gitea.gitea_auth
 '''
 
 EXAMPLES = '''
