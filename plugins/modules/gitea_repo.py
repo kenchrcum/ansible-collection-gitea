@@ -48,7 +48,7 @@ import giteapy
 from ansible.module_utils.aws.core import AnsibleModule
 from giteapy.rest import ApiException
 
-from ..module_utils.helper_functions import _configure_connection
+from ..module_utils.helper_functions import _configure_connection, _delete_nulls
 
 
 def _create_repo(module, api_instance):
@@ -72,7 +72,7 @@ def _create_repo(module, api_instance):
         password=module.params.get('gitea_password'),
     )
 
-    kwargs = dict((k, v) for k, v in params.items() if v is not None)
+    kwargs = _delete_nulls(params)
 
     username = module.params.get('username')
 
