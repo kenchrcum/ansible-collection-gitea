@@ -61,6 +61,5 @@ def _main():
         module.exit_json(changed=False, organizations=orgs)
 
 
-
 if __name__ == '__main__':
     _main()

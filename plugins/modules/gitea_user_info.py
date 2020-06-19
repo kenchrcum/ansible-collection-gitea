@@ -61,6 +61,5 @@ def _main():
         module.exit_json(changed=False, users=users)
 
 
-
 if __name__ == '__main__':
     _main()
