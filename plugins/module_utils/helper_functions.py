@@ -42,8 +42,8 @@ def _delete_nulls(h):
         a hash without nulls
     """
     if isinstance(h, list):
-        return [delete_nulls(i) for i in h]
+        return [_delete_nulls(i) for i in h]
     if isinstance(h, dict):
-        return dict((k, delete_nulls(v)) for k, v in h.items() if v is not None)
+        return dict((k, _delete_nulls(v)) for k, v in h.items() if v is not None)
 
     return h
