@@ -45,7 +45,7 @@ EXAMPLES = '''
 '''
 
 import giteapy
-from ansible.module_utils.aws.core import AnsibleModule
+from ansible.module_utils.basic import AnsibleModule
 from giteapy.rest import ApiException
 
 from ..module_utils.helper_functions import _configure_connection, _delete_nulls
