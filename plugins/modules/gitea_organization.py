@@ -23,19 +23,14 @@ def _create_org(module, api_instance):
         full_name=module.params.get('full_name'),
         location=module.params.get('location'),
         repo_admin_change_team_access=module.params.get('repo_admin_change_team_access'),
-        username=module.params.get('full_name'),
+        username=module.params.get('username'),
         visibility=module.params.get('visibility'),
         website=module.params.get('website'),
-    )
-    params_conn = dict(
-        host=module.params.get('gitea_host'),
-        username=module.params.get('gitea_user'),
-        password=module.params.get('gitea_password'),
     )
 
     kwargs = _delete_nulls(params)
 
-    username = module.params.get('username')
+    username = module.params.get('owner')
 
     changed = False
 
@@ -43,7 +38,7 @@ def _create_org(module, api_instance):
 
     for entry in api_response:
         org = entry.to_dict()
-        if org.get('full_name') == kwargs.get('full_name'):
+        if org.get('username') == kwargs.get('username'):
             module.exit_json(changed=changed, **org)
 
     new_org = giteapy.CreateOrgOption(**kwargs)
@@ -67,11 +62,12 @@ def _main():
         gitea_user=dict(required=True, default=None),
         gitea_password=dict(required=True, default=None, no_log=True),
         state=dict(default='present', choices=['present', 'absent']),
-        username=dict(required=True, default=None),
+        owner=dict(required=True, default=None),
         description=dict(required=False, default=None),
-        full_name=dict(required=True),
+        full_name=dict(required=False, default=None),
         location=dict(required=False, default=None),
         repo_admin_change_team_access=dict(required=False, default=None, type='bool'),
+        username=dict(required=True),
         visibility=dict(default='public', choices=['public', 'limited', 'private']),
         website=dict(required=False, default=None),
     )
