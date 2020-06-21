@@ -41,22 +41,29 @@ def _create_issue(module, api_instance):
             iss = iss.to_dict()
             if iss.get('title') == kwargs.get('title'):
                 issue = iss
-                issue['assignee'] = iss["assignee"]["login"]
+                try:
+                    issue['assignee'] = iss["assignee"]["login"]
+                except:
+                    pass
                 exists = True
-                index = issue['id']
+                index = issue['number']
     except ApiException as e:
-        module.fail_json(msg="Exception when calling IssueApi->issue_list_issues: %s" % e)
+        pass
 
     if exists:
-        ### TODO: api_instance.issue_edit_issue() always fails atm. Must be checked, but should work like this
-        # compare = _compare_dict_with_resource(kwargs, issue)
-        # if compare['change']:
-        #     body = giteapy.EditIssueOption(**kwargs)
-        #     try:
-        #         api_response = api_instance.issue_edit_issue(owner=owner, repo=repo, index=index, body=body)
-        #         changed=True
-        #     except ApiException as e:
-        #         module.fail_json(msg="Exception when calling IssueApi->issue_edit_issue: %s" % e)
+        compare = _compare_dict_with_resource(kwargs, issue)
+        if compare['change']:
+            args = dict()
+            for key in compare['updated_keys']:
+                args[key] = kwargs[key]
+            body = giteapy.EditIssueOption(**args)
+            try:
+                api_response = api_instance.issue_edit_issue(owner=owner, repo=repo, index=index, body=body)
+                changed=True
+            except ApiException as e:
+                module.fail_json(msg="Exception when calling IssueApi->issue_edit_issue: %s" % e)
+            else:
+                module.exit_json(changed=changed, **api_response.to_dict())
         module.exit_json(changed=changed, **issue)
 
     body = giteapy.CreateIssueOption(**kwargs)
