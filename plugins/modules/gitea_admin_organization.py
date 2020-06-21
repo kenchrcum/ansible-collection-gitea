@@ -6,7 +6,7 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 
 DOCUMENTATION = '''
 ---
-module: gitea_organization
+module: gitea_admin_organization
 short_description: Manage gitea organization 
 description:
   - Create a gitea organization

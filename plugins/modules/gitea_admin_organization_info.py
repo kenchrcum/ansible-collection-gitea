@@ -6,10 +6,10 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 
 DOCUMENTATION = '''
 ---
-module: gitea_user_info
-short_description: Get info existing users 
+module: gitea_admin_organization_info
+short_description: Get information on existing organizations 
 description:
-  - Get info existing users
+  - Get information on existing organizations
   - ATM only supports basic auth login
 requirements: [ 'giteapy' ]
 author:
@@ -49,16 +49,16 @@ def _main():
 
     api_instance = _configure_connection(connection_params, "admin")
 
-    users = []
+    orgs = []
     try:
-        api_response = api_instance.admin_get_all_users()
+        api_response = api_instance.admin_get_all_orgs()
         for entry in api_response:
-            user = entry.to_dict()
-            users.append(user)
+            org = entry.to_dict()
+            orgs.append(org)
     except ApiException as e:
-        module.fail_json(msg="Exception when calling AdminApi->admin_get_all_users: %s" % e)
+        module.fail_json(msg="Exception when calling AdminApi->admin_get_all_orgs: %s" % e)
     else:
-        module.exit_json(changed=False, users=users)
+        module.exit_json(changed=False, organizations=orgs)
 
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 
 DOCUMENTATION = '''
 ---
-module: gitea_repo
+module: gitea_admin_repo
 short_description: Manage repo on user's behalf
 description:
   - Manage repo on user's behalf

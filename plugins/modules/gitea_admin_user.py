@@ -6,7 +6,7 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 
 DOCUMENTATION = '''
 ---
-module: gitea_user
+module: gitea_admin_user
 short_description: Manage an user in Gitea
 description:
   - Manage an user in Gitea
